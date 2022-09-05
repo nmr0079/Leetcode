@@ -34,7 +34,7 @@ public:
                 Node *node = tree_queue.front();
                 tree_queue.pop();
                 result.back().push_back(node->val);
-                for(auto& node_ch:node->children)
+                for(auto node_ch:node->children)
                       tree_queue.push(node_ch);
                     
                 --qsize;
