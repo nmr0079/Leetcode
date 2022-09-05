@@ -20,17 +20,18 @@ public:
         int qsize;
         while(!tree_queue.empty()){
             qsize = tree_queue.size();
-            result.push_back({});
+            vector<int> curr_level;
             while(qsize!= 0){
                 TreeNode* node = tree_queue.front();
                 tree_queue.pop();
-                result.back().push_back(node->val);
+                curr_level.push_back(node->val);
                 if (node->left != NULL)
                     tree_queue.push(node->left);
                 if (node->right != NULL)
                     tree_queue.push(node->right);
                 --qsize;
             }
+            result.push_back(curr_level);
         }
         return result;
     }
