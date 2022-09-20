@@ -12,6 +12,8 @@ class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         int k = lists.size();
+        if(k == 0)
+            return NULL;
         priority_queue<int, vector<int>, greater<int>> pq_merged;
         for(int i = 0;i < k;i++){
             ListNode* node = lists[i];
@@ -20,6 +22,8 @@ public:
                 node = node->next;
             }
         }
+        if(pq_merged.size() == 0)
+            return NULL;
         
         ListNode* merged1 = new ListNode();
         ListNode* merged = merged1;
@@ -28,7 +32,9 @@ public:
             pq_merged.pop();
             merged = merged->next;
         }
-        return merged1->next;
+        merged->next = NULL;
+        merged1 = merged1->next;
+        return merged1;
         
     }
 };
