@@ -1,21 +1,33 @@
 class TimeMap {
 public:
-    unordered_map<string,map<int,string, greater<int>>> timeMap;
-    TimeMap() {
-        
-    }
+    unordered_map<string,vector<pair<int,string>>> timeMap;
+    TimeMap() {}
     
     void set(string key, string value, int timestamp) {
-        timeMap[key][timestamp] = value;
+        timeMap[key].push_back({timestamp,value});
     }
     
     string get(string key, int timestamp) {
         auto &ts = timeMap[key];
-        auto itr = ts.lower_bound(timestamp);
-        if(itr == ts.end())
+        
+        //binary search
+        int lo = 0;
+        int hi = ts.size() - 1;
+        int idx = -1;
+        
+        while(lo <= hi){
+            int mid = lo + (hi - lo)/2;
+            if(ts[mid].first <= timestamp){
+                idx = mid;
+                lo = mid+1;
+            }
+            else
+                hi = mid-1;
+        }
+        if(idx == -1)
             return "";
-        //itr--;
-        return itr->second;
+        
+        return ts[idx].second;
     }
 };
 
