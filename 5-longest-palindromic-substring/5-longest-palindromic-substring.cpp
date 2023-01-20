@@ -1,7 +1,8 @@
 class Solution {
 public:
+    //Dynamic programming bottom up approach (tabulation)
     string longestPalindrome(string s) {
-        int n = s.size();
+         int n = s.size();
         int dp[n][n];
         memset(dp,0,sizeof(dp));
         int beg = 0, end = 1;
