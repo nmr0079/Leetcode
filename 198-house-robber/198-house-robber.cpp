@@ -31,7 +31,7 @@ public:
         return memoized(nums,dp,0);*/
         
         //DP solution
-        vector<int> dp(nums.size());
+      /*  vector<int> dp(nums.size());
         int n = nums.size();
         if(n == 1){
             return nums[0];
@@ -42,8 +42,21 @@ public:
         for(int i = 2;i < n;i++){
             dp[i] = max(nums[i] + dp[i-2], dp[i-1]);
         }
-        return dp[n-1];
+        return dp[n-1];*/
+        //DP + O(1) solution
+          int n = nums.size();
+          if(n == 1){
+              return nums[0];
+          }
         
+        int two_hs_bf = nums[0], one_hs_bf = max(nums[1],nums[0]);
+        int curr_hs = one_hs_bf;
+        for(int i = 2;i < n;i++){
+            curr_hs = max(two_hs_bf+nums[i], one_hs_bf);
+            two_hs_bf = one_hs_bf;
+            one_hs_bf = curr_hs;
+        }
         
+        return curr_hs;
     }
 };
