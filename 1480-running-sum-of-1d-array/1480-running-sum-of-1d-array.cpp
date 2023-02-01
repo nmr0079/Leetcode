@@ -2,13 +2,14 @@ class Solution {
 public:
     vector<int> runningSum(vector<int>& nums) {
         int n = nums.size();
-        int prefixsum[n+1];
+        int prefixsum;
         vector<int> runningsum;
-        prefixsum[0] = nums[0];
-        runningsum.push_back(prefixsum[0]);
+        prefixsum = nums[0];
+        runningsum.push_back(prefixsum);
         for(int i = 1;i < n;i++){
-            prefixsum[i] = prefixsum[i-1] + nums[i];
-            runningsum.push_back(prefixsum[i]);
+            int currsum = prefixsum + nums[i];
+            runningsum.push_back(currsum);
+            prefixsum = currsum;
         }
         
         return runningsum;
