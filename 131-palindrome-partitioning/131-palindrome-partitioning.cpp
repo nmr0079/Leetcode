@@ -1,10 +1,15 @@
 class Solution {
 public:
-    bool isPalindrome(string s,int start,int end) {
+    bool isPalindrome(string s) {
+        int left = 0, right = s.size() - 1;
         
-        while(start <= end){
-          if(s[start++] != s[end--])
+        while(left < right){
+          if(s[left] != s[right])
                 return false;
+            else{
+                left++;
+                right--;
+            }
         }
         return true;
     }
@@ -17,7 +22,7 @@ public:
         }
         
         for(int i = start;i < s.size();i++){
-            if(isPalindrome(s,start,i)){
+            if(isPalindrome(s.substr(start,i-start+1))){
                 valid_part.push_back(s.substr(start,i-start+1));
                 rec_partition(s,i+1,valid_part,out);
                 valid_part.pop_back();  //Backtrack part
