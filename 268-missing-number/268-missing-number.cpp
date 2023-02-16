@@ -7,11 +7,13 @@ public:
             else
                 return 0;
         }
+      
+        
         
         sort(nums.begin(), nums.end());
+           if(nums[nums.size()-1] == nums.size() - 1)
+            return nums.size();
         int left = 0, right = nums.size() - 1;
-        if(nums[right] == right)
-            return right+1;
         
         while(left < right)
         {
