@@ -1,32 +1,16 @@
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-        if(nums.size() == 1){
-            if(nums[0] == 0)
-                return 1;
-            else
-                return 0;
+        int miss_no = nums.size();
+        //Logic : here, we are XORing all 0 - n numbers with all the array elements
+        //So, all the numbers present in the array will see each other and make the result 0;
+        //Only the missing number won't see itself in the array and will get XORed with 0 instead
+        //since n ?^ 0 = n,we get the missing number
+        for(int i = 0;i < nums.size();i++){  
+            miss_no ^= nums[i];
+            miss_no ^= i;
         }
-      
         
-        
-        sort(nums.begin(), nums.end());
-           if(nums[nums.size()-1] == nums.size() - 1)
-            return nums.size();
-        int left = 0, right = nums.size() - 1;
-        
-        while(left < right)
-        {
-            int mid = left + (right - left)/2;
-             if(nums[mid] == mid){
-                left=mid+1;
-            }
-            else
-            {
-                right = mid;
-            }
-            
-        }
-        return left;
+        return miss_no;
     }
 };
