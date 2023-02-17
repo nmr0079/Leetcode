@@ -1,22 +1,23 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        int n1 = nums.size();
-        int dup;
+        int hare = nums[0];
+        int tortoise = nums[0];
         
-        for(int i = 0;i < n1;i++){
-            int index = abs(nums[i]);
-            
-            if(nums[index] < 0)
-            {
-                dup = index;
-                break;
-            }
-            
-            nums[index] *= -1;
+        //Phase I : Finding the intersection point 
+        do{
+            tortoise = nums[tortoise];
+            hare = nums[nums[hare]];
+        }while(hare != tortoise);
+        
+        //Phase II : Next intersection point will give the node where cycle occurs
+        tortoise = nums[0];
+        while(tortoise != hare){
+            hare = nums[hare]; //hare is moving at a speed of tortoise
+            tortoise = nums[tortoise];
         }
         
-        return dup;
+        return hare;
         
     }
 };
