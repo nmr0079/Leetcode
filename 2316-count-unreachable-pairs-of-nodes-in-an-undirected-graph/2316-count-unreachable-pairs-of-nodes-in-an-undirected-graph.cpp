@@ -1,12 +1,20 @@
 class Solution {
 public:
-    int dfs(int node,vector<vector<int>>& adj,vector<bool>& visited){
-        visited[node] = true;
+    int bfs(int node,vector<vector<int>>& adj,vector<bool>& visited){
+        queue<int> q;
+        q.push(node);
+        visited[node] = true;  //this is for the first node passed
         int count = 1;
         
-        for(auto& nbhr: adj[node]){
-            if(!visited[nbhr]){
-                count += dfs(nbhr,adj,visited);
+        while(!q.empty()){
+            int node1 = q.front();
+            q.pop();
+            for(auto& nbhr: adj[node1]){
+                if(!visited[nbhr]){
+                    visited[nbhr] = true;
+                    count += 1;
+                    q.push(nbhr);
+                }
             }
         }
         
@@ -28,7 +36,7 @@ public:
         
         for(int i = 0;i < n;i++){
             if(!visited[i]){
-               int count_nodes = dfs(i,adj,visited);
+               int count_nodes = bfs(i,adj,visited);
                pair_count += count_nodes*(remaining_nodes - count_nodes);
                remaining_nodes -= count_nodes;
             }
