@@ -1,25 +1,17 @@
 class Solution {
 public:
     int partitionString(string s) {
-        int n = s.size();
-        int count = 0;
-        int i = 0;
-        // for(int i = 0;i < n;i++){
-        //     charFreq[s[i]]++;
-        //     if(charFreq[s[i]] > 1){
-        //         count++;
-        //         charFreq[s[i]] = 1;
-        //     }
-        // }
-        
-        while(i < n){
-            unordered_map<char,int> charFreq;
-            while(charFreq[s[i]] == 0 && i < n){
-                charFreq[s[i]]++;
-                i++;
+        vector<int> lastSeen(26, -1);
+        int count = 1, substringStart = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            if (lastSeen[s[i] - 'a'] >= substringStart) {
+                count++;
+                substringStart = i;
             }
-            count++;
+            lastSeen[s[i] - 'a'] = i;
         }
+
         return count;
     }
 };
